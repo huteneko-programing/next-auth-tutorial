@@ -27,4 +27,4 @@ export const authOptions = {
     }),
   ],
   adapter: PrismaAdapter(prisma),
-} 
+};
