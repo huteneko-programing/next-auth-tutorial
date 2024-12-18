@@ -1,11 +1,10 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
-import Image from "next/image";
 import React from "react";
-import GoogleLogo from "../../../../public/logos/google-logo.png";
-import GithubLogo from "../../../../public/logos/github-logo.svg";
 import Link from "next/link";
+import GithubButton from "@/components/GithubButton";
+import GoogleButton from "@/components/GoogleButton";
 
 const LoginPage = () => {
   return (
@@ -53,12 +52,8 @@ const LoginPage = () => {
               </div>
             </div>
             <div className="flex items-center justify-around">
-              <Button className="bg-white" size={"icon"} variant={"ghost"}>
-                <Image src={GoogleLogo} alt="Google logo" />
-              </Button>
-              <Button className="bg-white" size={"icon"} variant={"ghost"}>
-                <Image src={GithubLogo} alt="Google logo" />
-              </Button>
+              <GoogleButton />
+              <GithubButton />
             </div>
           </div>
         </CardContent>

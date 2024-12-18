@@ -6,6 +6,8 @@ import Image from "next/image";
 import GoogleLogo from "../../../../public/logos/google-logo.png";
 import GithubLogo from "../../../../public/logos/github-logo.svg";
 import Link from "next/link";
+import GoogleButton from "@/components/GoogleButton";
+import GithubButton from "@/components/GithubButton";
 
 const SignUp = () => {
   return (
@@ -53,12 +55,8 @@ const SignUp = () => {
               </div>
             </div>
             <div className="flex items-center justify-around">
-              <Button className="bg-white" size={"icon"} variant={"ghost"}>
-                <Image src={GoogleLogo} alt="Google logo"  />
-              </Button>
-              <Button className="bg-white" size={"icon"} variant={"ghost"}>
-                <Image src={GithubLogo} alt="Google logo" />
-              </Button>
+              <GoogleButton />
+              <GithubButton />
             </div>
           </div>
         </CardContent>
