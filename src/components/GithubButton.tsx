@@ -9,12 +9,12 @@ import GithubLogo from "../../public/logos/github-logo.png";
 const GithubButton = () => {
   return (
     <Button
-      onClick={() => signIn("github")}
+      onClick={() => signIn("github", { callbackUrl: "/home" })}
       className="bg-white"
       size={"icon"}
       variant={"ghost"}
     >
-      <Image src={GithubLogo} alt="Google logo" />
+      <Image src={GithubLogo} alt="Github logo" />
     </Button>
   );
 };

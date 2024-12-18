@@ -9,7 +9,7 @@ import GoogleLogo from "../../public/logos/google-logo.png";
 const GoogleButton = () => {
   return (
     <Button
-      onClick={() => signIn("google")}
+      onClick={() => signIn("google", { callbackUrl: "/home" })}
       className="bg-white"
       size={"icon"}
       variant={"ghost"}
