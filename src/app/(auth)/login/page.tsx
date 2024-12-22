@@ -1,12 +1,46 @@
+"use client";
+
+import React from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
-import React from "react";
-import Link from "next/link";
-import GithubButton from "@/components/GithubButton";
+import { useForm } from "react-hook-form";
+import { signIn } from "next-auth/react";
 import GoogleButton from "@/components/GoogleButton";
+import GithubButton from "@/components/GithubButton";
+import { useToast } from "@/hooks/use-toast";
 
-const LoginPage = () => {
+type FormData = {
+  email: string;
+};
+
+const Login = () => {
+  const { toast } = useToast();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<FormData>();
+
+  const onSubmit = async (data: FormData) => {
+    try {
+      await signIn("email", {
+        email: data.email,
+        callbackUrl: "/home",
+      });
+      toast({
+        title: "確認メールを送信しました",
+        description: "メールをご確認ください",
+      });
+    } catch (error) {
+      toast({
+        title: "エラーが発生しました",
+        description: "もう一度お試しください",
+        variant: "destructive",
+      });
+    }
+  };
+
   return (
     <div className="flex min-h-screen items-center justify-center">
       <Card className="w-[400px]">
@@ -15,7 +49,7 @@ const LoginPage = () => {
         </CardHeader>
         <CardContent>
           <div className="space-y-4">
-            <form className="space-y-4">
+            <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
               <div>
                 <label
                   htmlFor="email"
@@ -28,18 +62,23 @@ const LoginPage = () => {
                   type="email"
                   placeholder="mail@example.com"
                   className="w-full"
+                  {...register("email", {
+                    required: "メールアドレスは必須です",
+                    pattern: {
+                      value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+                      message: "有効なメールアドレスを入力してください",
+                    },
+                  })}
                 />
+                {errors.email && (
+                  <p className="text-sm text-red-500 mt-1">
+                    {errors.email.message}
+                  </p>
+                )}
               </div>
               <Button type="submit" className="w-full">
                 メールでログイン
               </Button>
-              <div className="text-center">
-                <Link href={"/sign-up"}>
-                  <Button className="bg-white text-blue-600" variant={"link"}>
-                    アカウントを持ってませんか？
-                  </Button>
-                </Link>
-              </div>
             </form>
             <div className="relative">
               <div className="absolute inset-0 flex items-center">
@@ -62,4 +101,4 @@ const LoginPage = () => {
   );
 };
 
-export default LoginPage;
+export default Login;
